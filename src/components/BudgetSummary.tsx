@@ -86,6 +86,13 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
+            borderWidth: 0.2,
+            borderColor: theme.border,
+            marginVertical: 4,
+          }}
+        />
+        {/* <View
+          style={{
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
@@ -99,7 +106,7 @@ const BudgetSummary = () => {
           <Text style={{ color: "purple", fontWeight: "bold", fontSize: 16 }}>
             BDT 0.00
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: "row",

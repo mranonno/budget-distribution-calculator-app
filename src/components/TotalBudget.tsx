@@ -60,7 +60,7 @@ const TotalBudget: React.FC = () => {
           >
             <Picker.Item label="USD" value="USD" />
             <Picker.Item label="BDT" value="BDT" />
-            <Picker.Item label="EURO" value="EURO" />
+            <Picker.Item label="EUR" value="EUR" />
           </Picker>
         </View>
       </View>

@@ -51,6 +51,8 @@ const HomeScreen = () => {
               {
                 color: theme.subheading,
                 textAlign: "center",
+                width: "70%",
+                alignSelf: "center",
               },
             ]}
           >
