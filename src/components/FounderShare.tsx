@@ -1,19 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import Colors from "../constants/colors";
+import useTheme from "../hooks/useTheme";
 
 const FounderShare: React.FC = () => {
   const [percentage, setPercentage] = useState<string>("5");
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? "light"];
+  const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.componentBackground }]}
+    >
       <Text style={styles.heading}>Founder's Share</Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Select percentage per Founder</Text>
-        <View style={styles.pickerWrapper}>
+        <Text style={[styles.label, { color: theme.body }]}>
+          Select Percentage Per Founder
+        </Text>
+        <View
+          style={[
+            styles.pickerWrapper,
+            { backgroundColor: theme.background, borderColor: theme.border },
+          ]}
+        >
           <Picker
             selectedValue={percentage}
             onValueChange={(itemValue: string) => setPercentage(itemValue)}
@@ -59,7 +67,6 @@ export default FounderShare;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     marginTop: 20,
     padding: 16,
     borderRadius: 8,
@@ -82,7 +89,6 @@ const styles = StyleSheet.create({
   },
   pickerWrapper: {
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
     overflow: "hidden",
     marginBottom: 8,

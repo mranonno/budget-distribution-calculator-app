@@ -7,7 +7,7 @@ import useTheme from "../hooks/useTheme";
 const TotalBudget: React.FC = () => {
   const [currency, setCurrency] = useState<string>("USD");
   const [amount, setAmount] = useState<string>("");
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View
@@ -28,7 +28,11 @@ const TotalBudget: React.FC = () => {
         <TextInput
           style={[
             styles.input,
-            { borderColor: theme.placeholder, color: theme.body },
+            {
+              borderColor: theme.border,
+              color: theme.body,
+              backgroundColor: theme.background,
+            },
           ]}
           keyboardType="numeric"
           placeholder="e.g. 1000"
@@ -41,7 +45,13 @@ const TotalBudget: React.FC = () => {
           Currency
         </Text>
         <View
-          style={[styles.pickerWrapper, { borderColor: theme.placeholder }]}
+          style={[
+            styles.pickerWrapper,
+            {
+              borderColor: theme.border,
+              backgroundColor: theme.background,
+            },
+          ]}
         >
           <Picker
             selectedValue={currency}

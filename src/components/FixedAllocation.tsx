@@ -1,20 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import useTheme from "../hooks/useTheme";
 
 const FixedAllocation = () => {
+  const { theme } = useTheme();
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.componentBackground }]}
+    >
       <Text style={styles.heading}>Fixed Allocation</Text>
 
       {/* Founders Row */}
       <View style={styles.row}>
-        <View style={styles.founderContainer}>
+        <View style={styles.companyFund}>
           <Text style={styles.founderName}>Company Fund (17.5%)</Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
+          <Text style={styles.companyAmount}>BDT 0.00</Text>
         </View>
-        <View style={styles.founderContainer}>
+        <View style={styles.zakatFund}>
           <Text style={styles.founderName}>Zakat (2.5%)</Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
+          <Text style={styles.zakatAmount}>BDT 0.00</Text>
         </View>
       </View>
     </View>
@@ -25,7 +29,6 @@ export default FixedAllocation;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     marginTop: 20,
     padding: 16,
     borderRadius: 8,
@@ -46,9 +49,15 @@ const styles = StyleSheet.create({
     gap: 12, // optional spacing between items
     marginTop: 12,
   },
-  founderContainer: {
+  companyFund: {
     flex: 1,
-    backgroundColor: "#EFF6FF",
+    backgroundColor: "#F0FDF4",
+    borderRadius: 8,
+    padding: 12,
+  },
+  zakatFund: {
+    flex: 1,
+    backgroundColor: "#FEFCE8",
     borderRadius: 8,
     padding: 12,
   },
@@ -56,8 +65,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
-  founderAmount: {
-    color: "#2050D9",
+  companyAmount: {
+    color: "#15803D",
+    fontWeight: "bold",
+    fontSize: 18,
+    marginTop: 4,
+  },
+  zakatAmount: {
+    color: "#A16207",
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 4,
