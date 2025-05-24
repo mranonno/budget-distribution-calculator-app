@@ -31,7 +31,7 @@ const RemainingBudgetAllocation = () => {
       >
         Remaining Budget Allocations
       </Text>
-      <Text style={{ color: "green" }}>
+      <Text style={{ color: "green", fontWeight: "500" }}>
         Remaining Budget: BDT 0.00 (60% of total)
       </Text>
       <View style={styles.inputContainer}>
@@ -51,10 +51,10 @@ const RemainingBudgetAllocation = () => {
               {
                 backgroundColor: theme.background,
                 borderColor: theme.border,
+                color: theme.placeholder,
               },
             ]}
             placeholder="amount"
-            placeholderTextColor={theme.placeholder}
             maxLength={10}
             value={amount}
             editable={false}
@@ -97,10 +97,10 @@ const RemainingBudgetAllocation = () => {
               {
                 backgroundColor: theme.background,
                 borderColor: theme.border,
+                color: theme.placeholder,
               },
             ]}
             placeholder="amount"
-            placeholderTextColor={theme.placeholder}
             maxLength={10}
             value={amount}
             editable={false}
@@ -141,10 +141,10 @@ const RemainingBudgetAllocation = () => {
               {
                 backgroundColor: theme.background,
                 borderColor: theme.border,
+                color: theme.placeholder,
               },
             ]}
             placeholder="amount"
-            placeholderTextColor={theme.placeholder}
             maxLength={10}
             value={amount}
             editable={false}
@@ -187,10 +187,10 @@ const RemainingBudgetAllocation = () => {
               {
                 backgroundColor: theme.background,
                 borderColor: theme.border,
+                color: theme.placeholder,
               },
             ]}
             placeholder="amount"
-            placeholderTextColor={theme.placeholder}
             maxLength={10}
             value={amount}
             editable={false}
@@ -233,10 +233,10 @@ const RemainingBudgetAllocation = () => {
               {
                 backgroundColor: theme.background,
                 borderColor: theme.border,
+                color: theme.placeholder,
               },
             ]}
             placeholder="amount"
-            placeholderTextColor={theme.placeholder}
             maxLength={10}
             value={amount}
             editable={false}
@@ -279,7 +279,7 @@ const RemainingBudgetAllocation = () => {
           //   value={amount}
           //   onChangeText={setAmount}
         />
-        <TouchableOpacity style={[styles.addButton]}>
+        <TouchableOpacity activeOpacity={0.7} style={[styles.addButton]}>
           <Text style={styles.buttonText}>Add Team</Text>
         </TouchableOpacity>
       </View>
@@ -328,14 +328,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
   },
-  addButton: { backgroundColor: "green", padding: 16, borderRadius: 8 },
+  addButton: { backgroundColor: "green", padding: 14, borderRadius: 8 },
   addTeamContainer: {
     marginTop: 20,
   },
   buttonText: {
     color: "white",
     textAlign: "center",
-    fontWeight: "medium",
+    fontWeight: "500",
     fontSize: 18,
   },
   teamInput: {

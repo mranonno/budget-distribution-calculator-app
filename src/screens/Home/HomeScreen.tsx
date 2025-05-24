@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Colors from "../../constants/colors";
 import Typography from "../../constants/typography";
 import RemainingBudgetAllocation from "../../components/RemainingBudgetAllocation";
+import BudgetSummary from "../../components/BudgetSummary";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -60,6 +61,11 @@ const HomeScreen = () => {
           <FounderShare />
           <FixedAllocation />
           <RemainingBudgetAllocation />
+          <BudgetSummary />
+
+          <Text style={[styles.copyrightText, { color: theme.body }]}>
+            Copyright © 2025 - All right reserved by Xrodev
+          </Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
@@ -72,4 +78,5 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
   },
+  copyrightText: { textAlign: "center", marginTop: 20 },
 });
