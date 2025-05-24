@@ -8,7 +8,7 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         <HomeScreen />
-        <StatusBar translucent backgroundColor="white" style="dark" />
+        <StatusBar translucent style="dark" />
       </View>
     </SafeAreaProvider>
   );
