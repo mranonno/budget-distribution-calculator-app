@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import useTheme from "../hooks/useTheme";
+import Typography from "../constants/typography";
 
 const FounderShare: React.FC = () => {
   const [percentage, setPercentage] = useState<string>("5");
@@ -11,7 +12,15 @@ const FounderShare: React.FC = () => {
     <View
       style={[styles.container, { backgroundColor: theme.componentBackground }]}
     >
-      <Text style={styles.heading}>Founder's Share</Text>
+      <Text
+        style={[
+          styles.heading,
+          Typography.subheading,
+          { color: theme.heading },
+        ]}
+      >
+        Founder's Share
+      </Text>
       <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: theme.body }]}>
           Select Percentage Per Founder
@@ -40,22 +49,30 @@ const FounderShare: React.FC = () => {
       {/* Founders Row */}
       <View style={styles.row}>
         <View style={styles.founderContainer}>
-          <Text style={styles.founderName}>Rifat Ansari</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Rifat Ansari
+          </Text>
           <Text style={styles.founderAmount}>BDT 0.00</Text>
         </View>
         <View style={styles.founderContainer}>
-          <Text style={styles.founderName}>Yousuf Sharker</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Yousuf Sharker
+          </Text>
           <Text style={styles.founderAmount}>BDT 0.00</Text>
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.founderContainer}>
-          <Text style={styles.founderName}>Atikur Rahman</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Atikur Rahman
+          </Text>
           <Text style={styles.founderAmount}>BDT 0.00</Text>
         </View>
         <View style={styles.founderContainer}>
-          <Text style={styles.founderName}>Rayan Hossain</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Rayan Hossain
+          </Text>
           <Text style={styles.founderAmount}>BDT 0.00</Text>
         </View>
       </View>

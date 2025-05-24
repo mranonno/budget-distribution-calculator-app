@@ -14,6 +14,7 @@ import FixedAllocation from "../../components/FixedAllocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Colors from "../../constants/colors";
 import Typography from "../../constants/typography";
+import RemainingBudgetAllocation from "../../components/RemainingBudgetAllocation";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -58,7 +59,7 @@ const HomeScreen = () => {
           <TotalBudget />
           <FounderShare />
           <FixedAllocation />
-          <FounderShare />
+          <RemainingBudgetAllocation />
         </ScrollView>
       </KeyboardAvoidingView>
     </View>

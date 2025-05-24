@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import useTheme from "../hooks/useTheme";
+import Typography from "../constants/typography";
 
 const FixedAllocation = () => {
   const { theme } = useTheme();
@@ -8,16 +9,28 @@ const FixedAllocation = () => {
     <View
       style={[styles.container, { backgroundColor: theme.componentBackground }]}
     >
-      <Text style={styles.heading}>Fixed Allocation</Text>
+      <Text
+        style={[
+          styles.heading,
+          Typography.subheading,
+          { color: theme.heading },
+        ]}
+      >
+        Fixed Allocation
+      </Text>
 
       {/* Founders Row */}
       <View style={styles.row}>
         <View style={styles.companyFund}>
-          <Text style={styles.founderName}>Company Fund (17.5%)</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Company Fund (17.5%)
+          </Text>
           <Text style={styles.companyAmount}>BDT 0.00</Text>
         </View>
         <View style={styles.zakatFund}>
-          <Text style={styles.founderName}>Zakat (2.5%)</Text>
+          <Text style={[styles.founderName, { color: theme.body }]}>
+            Zakat (2.5%)
+          </Text>
           <Text style={styles.zakatAmount}>BDT 0.00</Text>
         </View>
       </View>
