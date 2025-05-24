@@ -32,7 +32,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -50,7 +50,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -68,7 +68,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -113,7 +113,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -133,7 +133,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -151,7 +151,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
@@ -169,7 +169,7 @@ const BudgetSummary = () => {
         </View>
         <View
           style={{
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: theme.border,
             marginVertical: 4,
           }}
