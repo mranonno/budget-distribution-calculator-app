@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -5,17 +6,24 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  useColorScheme,
 } from "react-native";
-import React from "react";
 import TotalBudget from "../../components/TotalBudget";
 import FounderShare from "../../components/FounderShare";
+import FixedAllocation from "../../components/FixedAllocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Colors from "../../constants/colors";
+import Typography from "../../constants/typography";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme ?? "light"];
 
   return (
-    <View style={{ flex: 1, paddingTop: top }}>
+    <View
+      style={{ flex: 1, paddingTop: top, backgroundColor: theme.background }}
+    >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -27,18 +35,30 @@ const HomeScreen = () => {
           ]}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.mainHeadingText}>
+          <Text
+            style={[
+              Typography.heading,
+              { color: theme.heading, textAlign: "center" },
+            ]}
+          >
             Budget Distribution Calculator
           </Text>
-          <Text style={styles.subTitle}>
+          <Text
+            style={[
+              Typography.subheading,
+              {
+                color: theme.subheading,
+                textAlign: "center",
+              },
+            ]}
+          >
             Allocate your budget smartly with precision and clarity
           </Text>
 
           <TotalBudget />
           <FounderShare />
+          <FixedAllocation />
           <FounderShare />
-          <FounderShare />
-          {/* Add more components here to test scrolling */}
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
@@ -50,15 +70,5 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-  },
-  mainHeadingText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    alignSelf: "center",
-    marginBottom: 8,
-  },
-  subTitle: {
-    alignSelf: "center",
-    marginBottom: 16,
   },
 });

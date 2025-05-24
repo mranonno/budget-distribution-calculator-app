@@ -1,27 +1,52 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import Typography from "../constants/typography";
+import useTheme from "../hooks/useTheme";
 
-const TotalBudget = () => {
-  const [currency, setCurrency] = useState("USD");
+const TotalBudget: React.FC = () => {
+  const [currency, setCurrency] = useState<string>("USD");
+  const [amount, setAmount] = useState<string>("");
+  const theme = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Enter Total Budget</Text>
+    <View
+      style={[styles.container, { backgroundColor: theme.componentBackground }]}
+    >
+      <Text
+        style={[
+          Typography.subheading,
+          { color: theme.heading, marginBottom: 12 },
+        ]}
+      >
+        Enter Total Budget
+      </Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Budget Amount</Text>
+        <Text style={[Typography.body, { color: theme.body, marginBottom: 4 }]}>
+          Budget Amount
+        </Text>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            { borderColor: theme.placeholder, color: theme.body },
+          ]}
           keyboardType="numeric"
           placeholder="e.g. 1000"
+          placeholderTextColor={theme.placeholder}
           maxLength={10}
+          value={amount}
+          onChangeText={setAmount}
         />
-        <Text style={styles.label}>Currency</Text>
-        <View style={styles.pickerWrapper}>
+        <Text style={[Typography.body, { color: theme.body, marginBottom: 4 }]}>
+          Currency
+        </Text>
+        <View
+          style={[styles.pickerWrapper, { borderColor: theme.placeholder }]}
+        >
           <Picker
             selectedValue={currency}
-            onValueChange={(itemValue) => setCurrency(itemValue)}
-            style={styles.picker}
+            onValueChange={(itemValue: string) => setCurrency(itemValue)}
+            style={[styles.picker, { color: theme.body }]}
           >
             <Picker.Item label="USD" value="USD" />
             <Picker.Item label="BDT" value="BDT" />
@@ -37,36 +62,18 @@ export default TotalBudget;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     marginTop: 20,
     padding: 16,
     borderRadius: 8,
-    // iOS shadow
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-
-    // Android shadow
     elevation: 4,
   },
-  heading: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
-  },
-  inputContainer: {
-    // gap: 16,
-    // flex: 1,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: "500",
-    marginBottom: 4,
-  },
+  inputContainer: {},
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
@@ -74,12 +81,9 @@ const styles = StyleSheet.create({
   },
   pickerWrapper: {
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
     overflow: "hidden",
     marginBottom: 8,
   },
-  picker: {
-    // width: "100%",
-  },
+  picker: {},
 });

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import Colors from "../constants/colors";
 
 const FounderShare: React.FC = () => {
   const [percentage, setPercentage] = useState<string>("5");
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme ?? "light"];
 
   return (
     <View style={styles.container}>
