@@ -27,12 +27,15 @@ const styles = StyleSheet.create({
   container: {
     // Add base styles here if needed
     flex: 1,
-    alignItems: "center",
-    // justifyContent: "center",
+    width: "auto",
+    paddingHorizontal: 20,
   },
   mainHeadingText: {
     fontSize: 24,
     fontWeight: "bold",
+    alignSelf: "center",
   },
-  subTitle: {},
+  subTitle: {
+    alignSelf: "center",
+  },
 });
