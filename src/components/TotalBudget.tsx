@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   heading: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
     marginBottom: 12,
   },

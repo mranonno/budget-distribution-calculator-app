@@ -1,32 +1,51 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-const FounderShare = () => {
-  const [currency, setCurrency] = useState("USD");
+const FounderShare: React.FC = () => {
+  const [percentage, setPercentage] = useState<string>("5");
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Enter Total Budget</Text>
+      <Text style={styles.heading}>Founder's Share</Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Budget Amount</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="e.g. 1000"
-          maxLength={10}
-        />
-        <Text style={styles.label}>Currency</Text>
+        <Text style={styles.label}>Select percentage per Founder</Text>
         <View style={styles.pickerWrapper}>
           <Picker
-            selectedValue={currency}
-            onValueChange={(itemValue) => setCurrency(itemValue)}
+            selectedValue={percentage}
+            onValueChange={(itemValue: string) => setPercentage(itemValue)}
             style={styles.picker}
           >
-            <Picker.Item label="USD" value="USD" />
-            <Picker.Item label="BDT" value="BDT" />
-            <Picker.Item label="EURO" value="EURO" />
+            <Picker.Item label="5%" value="5" />
+            <Picker.Item label="6%" value="6" />
+            <Picker.Item label="7%" value="7" />
+            <Picker.Item label="8%" value="8" />
+            <Picker.Item label="9%" value="9" />
+            <Picker.Item label="10%" value="10" />
           </Picker>
+        </View>
+      </View>
+
+      {/* Founders Row */}
+      <View style={styles.row}>
+        <View style={styles.founderContainer}>
+          <Text style={styles.founderName}>Rifat Ansari</Text>
+          <Text style={styles.founderAmount}>BDT 0.00</Text>
+        </View>
+        <View style={styles.founderContainer}>
+          <Text style={styles.founderName}>Yousuf Sharker</Text>
+          <Text style={styles.founderAmount}>BDT 0.00</Text>
+        </View>
+      </View>
+
+      <View style={styles.row}>
+        <View style={styles.founderContainer}>
+          <Text style={styles.founderName}>Atikur Rahman</Text>
+          <Text style={styles.founderAmount}>BDT 0.00</Text>
+        </View>
+        <View style={styles.founderContainer}>
+          <Text style={styles.founderName}>Rayan Hossain</Text>
+          <Text style={styles.founderAmount}>BDT 0.00</Text>
         </View>
       </View>
     </View>
@@ -41,36 +60,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 16,
     borderRadius: 8,
-    // iOS shadow
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-
-    // Android shadow
     elevation: 4,
   },
   heading: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
     marginBottom: 12,
   },
-  inputContainer: {
-    // gap: 16,
-    // flex: 1,
-  },
+  inputContainer: {},
   label: {
     fontSize: 14,
     fontWeight: "500",
     marginBottom: 4,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 16,
-    fontSize: 16,
-    marginBottom: 16,
   },
   pickerWrapper: {
     borderWidth: 1,
@@ -79,7 +84,27 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: 8,
   },
-  picker: {
-    // width: "100%",
+  picker: {},
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12, // optional spacing between items
+    marginTop: 12,
+  },
+  founderContainer: {
+    flex: 1,
+    backgroundColor: "#EFF6FF",
+    borderRadius: 8,
+    padding: 12,
+  },
+  founderName: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  founderAmount: {
+    color: "#2050D9",
+    fontWeight: "bold",
+    fontSize: 18,
+    marginTop: 4,
   },
 });
