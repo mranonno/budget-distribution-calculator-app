@@ -16,6 +16,7 @@ import Colors from "../../constants/colors";
 import Typography from "../../constants/typography";
 import RemainingBudgetAllocation from "../../components/RemainingBudgetAllocation";
 import BudgetSummary from "../../components/BudgetSummary";
+import Navbar from "../../shared/Navbar";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -37,28 +38,7 @@ const HomeScreen = () => {
           ]}
           keyboardShouldPersistTaps="handled"
         >
-          <Text
-            style={[
-              Typography.heading,
-              { color: theme.heading, textAlign: "center" },
-            ]}
-          >
-            Budget Distribution Calculator
-          </Text>
-          <Text
-            style={[
-              Typography.subheading,
-              {
-                color: theme.subheading,
-                textAlign: "center",
-                width: "70%",
-                alignSelf: "center",
-              },
-            ]}
-          >
-            Allocate your budget smartly with precision and clarity
-          </Text>
-
+          <Navbar />
           <TotalBudget />
           <FounderShare />
           <FixedAllocation />
