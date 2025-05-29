@@ -1,12 +1,25 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Platform } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import useTheme from "../hooks/useTheme";
 import Typography from "../constants/typography";
+import { Founder, useMainContext } from "../hooks/useMainContext";
 
 const FounderShare: React.FC = () => {
   const [percentage, setPercentage] = useState<string>("5");
   const { theme } = useTheme();
+  const { founders, totalBudget, currency } = useMainContext();
+
+  // Convert percentage string to number
+  const percentValue = parseFloat(percentage);
+
+  // Calculate total allocation for all founders
+  const totalFounderAllocation =
+    totalBudget > 0 ? (totalBudget * percentValue) / 100 : 0;
+
+  // Split equally among all founders
+  const founderShareEach =
+    founders.length > 0 ? totalFounderAllocation / founders.length : 0;
 
   return (
     <View
@@ -21,6 +34,7 @@ const FounderShare: React.FC = () => {
       >
         Founder's Share
       </Text>
+
       <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: theme.body }]}>
           Select Percentage Per Founder
@@ -35,6 +49,7 @@ const FounderShare: React.FC = () => {
             selectedValue={percentage}
             onValueChange={(itemValue: string) => setPercentage(itemValue)}
             style={styles.picker}
+            dropdownIconColor={theme.body}
           >
             <Picker.Item label="5%" value="5" />
             <Picker.Item label="6%" value="6" />
@@ -46,42 +61,61 @@ const FounderShare: React.FC = () => {
         </View>
       </View>
 
-      {/* Founders Row */}
-      <View style={styles.row}>
-        <View style={styles.founderContainer}>
-          <Text style={[styles.founderName, { color: theme.body }]}>
-            Rifat Ansari
-          </Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
-        </View>
-        <View style={styles.founderContainer}>
-          <Text style={[styles.founderName, { color: theme.body }]}>
-            Yousuf Sharker
-          </Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
-        </View>
-      </View>
+      {/* Info Tooltip */}
+      <Text style={[styles.info, { color: theme.body }]}>
+        Shares are divided equally among all founders.
+      </Text>
 
-      <View style={styles.row}>
-        <View style={styles.founderContainer}>
-          <Text style={[styles.founderName, { color: theme.body }]}>
-            Atikur Rahman
-          </Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
-        </View>
-        <View style={styles.founderContainer}>
-          <Text style={[styles.founderName, { color: theme.body }]}>
-            Rayan Hossain
-          </Text>
-          <Text style={styles.founderAmount}>BDT 0.00</Text>
-        </View>
-      </View>
+      {/* Show total allocation */}
+      <Text style={[styles.summary, { color: theme.body, marginBottom: 12 }]}>
+        Total Allocation:{" "}
+        <Text style={{ fontWeight: "bold" }}>
+          {currency} {totalFounderAllocation.toFixed(2)}
+        </Text>
+      </Text>
+
+      {/* Empty state if budget is zero */}
+      {totalBudget <= 0 && (
+        <Text
+          style={{
+            color: theme.body,
+            textAlign: "center",
+            marginTop: 12,
+            fontSize: 14,
+          }}
+        >
+          Please enter a total budget to calculate shares.
+        </Text>
+      )}
+
+      {/* Render founders dynamically */}
+      {founders.length > 0 && totalBudget > 0 && (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollViewContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {founders.map((founder, index) => (
+            <View key={index} style={styles.founderContainer}>
+              <Text style={[styles.founderName, { color: theme.body }]}>
+                {founder.name}
+              </Text>
+              <Text style={styles.founderAmount}>
+                {currency} {founderShareEach.toFixed(2)}
+              </Text>
+              <Text style={styles.founderPercent}>
+                {(100 / founders.length).toFixed(1)}%
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
 
 export default FounderShare;
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
@@ -110,18 +144,29 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: 8,
   },
-  picker: {},
-  row: {
+  picker: {
+    height: 50,
+  },
+  info: {
+    fontSize: 12,
+    fontStyle: "italic",
+    marginBottom: 8,
+  },
+  summary: {
+    fontSize: 14,
+  },
+  scrollViewContent: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 12, // optional spacing between items
-    marginTop: 12,
+    gap: 12,
+    paddingBottom: 12,
   },
   founderContainer: {
-    flex: 1,
+    minWidth: 130,
+    maxWidth: 160,
     backgroundColor: "#EFF6FF",
     borderRadius: 8,
     padding: 12,
+    justifyContent: "space-between",
   },
   founderName: {
     fontSize: 14,
@@ -131,6 +176,11 @@ const styles = StyleSheet.create({
     color: "#2050D9",
     fontWeight: "bold",
     fontSize: 18,
+    marginTop: 4,
+  },
+  founderPercent: {
+    fontSize: 12,
+    color: "#6B7280",
     marginTop: 4,
   },
 });
