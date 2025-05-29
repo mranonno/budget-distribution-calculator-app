@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Typography from "../constants/typography";
 import useTheme from "../hooks/useTheme";
+import { useMainContext } from "../hooks/useMainContext";
 
 const TotalBudget: React.FC = () => {
-  const [currency, setCurrency] = useState<string>("USD");
-  const [amount, setAmount] = useState<string>("");
   const { theme } = useTheme();
+  const { totalBudget, setTotalBudget, currency, setCurrency } =
+    useMainContext();
 
   return (
     <View
@@ -38,9 +39,21 @@ const TotalBudget: React.FC = () => {
           placeholder="e.g. 1000"
           placeholderTextColor={theme.placeholder}
           maxLength={10}
-          value={amount}
-          onChangeText={setAmount}
+          value={totalBudget === 0 ? "" : totalBudget.toString()}
+          onChangeText={setTotalBudget}
         />
+        {totalBudget === 0 && (
+          <Text
+            style={{
+              color: theme.placeholder,
+              fontSize: 12,
+              marginTop: -10,
+              marginBottom: 10,
+            }}
+          >
+            Please enter your budget
+          </Text>
+        )}
         <Text style={[Typography.body, { color: theme.body, marginBottom: 4 }]}>
           Currency
         </Text>
@@ -56,7 +69,6 @@ const TotalBudget: React.FC = () => {
           <Picker
             selectedValue={currency}
             onValueChange={(itemValue: string) => setCurrency(itemValue)}
-            style={[styles.picker, { color: theme.body }]}
           >
             <Picker.Item label="USD" value="USD" />
             <Picker.Item label="BDT" value="BDT" />
