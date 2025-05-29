@@ -7,6 +7,7 @@ import foundersData from "../../assets/data/founders.json";
 export type Founder = {
   name: string;
   amount: number;
+  color: string;
 };
 
 // Updated context interface

@@ -86,12 +86,12 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     padding: 16,
-    borderRadius: 8,
-    shadowColor: "#000",
+    borderRadius: 12,
+    shadowColor: "#999",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 4,
+    elevation: 20,
   },
   inputContainer: {},
   input: {

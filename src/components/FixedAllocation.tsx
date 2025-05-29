@@ -46,25 +46,29 @@ const FixedAllocation = () => {
 
       {/* Allocation cards */}
       {totalBudget > 0 && (
-        <>
-          <View style={styles.allocationCard}>
-            <Text style={[styles.label, { color: theme.body }]}>
-              Company Fund ({companyFundPercent}%)
-            </Text>
-            <Text style={styles.companyAmount}>
+        <View style={styles.rowContainer}>
+          {/* Company Fund Card */}
+          <View style={[styles.allocationCard, styles.companyFundCard]}>
+            <Text style={[styles.companyAmount, { color: theme.subheading }]}>
               {currency} {companyFundAmount.toFixed(2)}
+            </Text>
+            <Text style={[styles.label, { color: theme.body }]}>
+              Company Fund
+              {/* ({companyFundPercent}%) */}
             </Text>
           </View>
 
-          <View style={styles.allocationCard}>
-            <Text style={[styles.label, { color: theme.body }]}>
-              Zakat ({zakatFundPercent}%)
-            </Text>
-            <Text style={styles.zakatAmount}>
+          {/* Zakat Card */}
+          <View style={[styles.allocationCard, styles.zakatFundCard]}>
+            <Text style={[styles.zakatAmount, { color: theme.subheading }]}>
               {currency} {zakatFundAmount.toFixed(2)}
             </Text>
+            <Text style={[styles.label, { color: theme.body }]}>
+              Zakat
+              {/* ({zakatFundPercent}%) */}
+            </Text>
           </View>
-        </>
+        </View>
       )}
     </View>
   );
@@ -75,37 +79,51 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     padding: 16,
-    borderRadius: 8,
-    shadowColor: "#000",
+    borderRadius: 12,
+    shadowColor: "#999",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 4,
+    elevation: 20,
   },
   heading: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 12,
   },
-  allocationCard: {
-    backgroundColor: "#F9FAFB",
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
   },
+  allocationCard: {
+    flex: 1,
+    borderRadius: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+  },
+
+  // Custom backgrounds
+  companyFundCard: {
+    backgroundColor: "#E3FAFF",
+  },
+  zakatFundCard: {
+    backgroundColor: "#FFEAEB",
+  },
+
   label: {
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 4,
   },
   companyAmount: {
-    color: "#15803D",
     fontWeight: "bold",
     fontSize: 18,
+    marginBottom: 4,
   },
   zakatAmount: {
-    color: "#A16207",
     fontWeight: "bold",
     fontSize: 18,
+    marginBottom: 4,
   },
 });

@@ -5,7 +5,7 @@ const Colors = {
     body: "#555555",
     placeholder: "#888888",
     accent: "#007AFF",
-    background: "#F0F7FF", // Your original background
+    background: "#FDFDFD", // Your original background
     componentBackground: "#FFFFFF", // Light card background
     border: "#CCCCCC", // Light gray border — subtle and clean
   },
