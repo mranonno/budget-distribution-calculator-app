@@ -1,11 +1,20 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import foundersData from "../../assets/data/founders.json";
+import teamsData from "../../assets/data/teams.json";
 
 // Founder type
 export type Founder = {
   name: string;
   amount: number;
   color: string;
+};
+// Teams type
+export type Team = {
+  id: number;
+  name: string;
+  percentage: string;
+  amount: number;
+  deleteOption: boolean;
 };
 
 export interface MainContextType {
@@ -17,8 +26,9 @@ export interface MainContextType {
   setFounders: React.Dispatch<React.SetStateAction<Founder[]>>;
   projectName: string;
   setProjectName: (value: string) => void;
+  teams: Team[];
+  setTeams: React.Dispatch<React.SetStateAction<Team[]>>;
 }
-
 // Create the context
 export const MainContext = createContext<MainContextType | undefined>(
   undefined
@@ -32,14 +42,28 @@ interface MyProviderProps {
 const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   const [totalBudget, setTotalBudgetState] = useState<number>(0);
   const [currency, setCurrencyState] = useState<string>("USD");
-  const [founders, setFounders] = useState<Founder[]>(foundersData);
+  const [founders, setFounders] = useState<Founder[]>(
+    Array.isArray(foundersData) ? foundersData : []
+  );
   const [projectName, setProjectNameState] = useState<string>("");
+  const [teams, setTeams] = useState<Team[]>(
+    Array.isArray(teamsData) ? teamsData : []
+  );
+
+  // Load initial data
   useEffect(() => {
     if (!foundersData || !Array.isArray(foundersData)) {
       console.error("Failed to load founders data");
       setFounders([]);
     }
   }, []);
+  useEffect(() => {
+    if (!teamsData || !Array.isArray(teamsData)) {
+      console.error("Failed to load teams data");
+      setTeams([]);
+    }
+  }, []);
+
   // Custom setter for totalBudget
   const setTotalBudget = (value: string | number) => {
     let numericValue = 0;
@@ -79,6 +103,8 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
     setFounders,
     projectName,
     setProjectName,
+    teams,
+    setTeams,
   };
 
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;

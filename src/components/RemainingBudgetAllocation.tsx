@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,17 +6,58 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import Typography from "../constants/typography";
 import useTheme from "../hooks/useTheme";
-import { Picker } from "@react-native-picker/picker";
+import { MainContext } from "../context/MainContext";
+import DeleteIcon from "../../assets/Icons/DeleteIcon";
 
 const RemainingBudgetAllocation = () => {
-  const [percentage, setPercentage] = useState<string>("0");
-  const [amount, setAmount] = useState<string>("0");
   const { theme } = useTheme();
+  const context = useContext(MainContext);
+  const { teams, setTeams, totalBudget } = context!;
+  const [newTeam, setNewTeam] = useState("");
 
-  // Generate options from 0% to 40%
-  const percentageOptions = Array.from({ length: 41 }, (_, i) => i.toString());
+  const percentageOptions = Array.from({ length: 101 }, (_, i) => i.toString());
+
+  const getRemainingAmount = () => (totalBudget * 60) / 100;
+
+  const handlePercentageChange = (id: number, value: string) => {
+    const numericValue = parseFloat(value);
+    setTeams((prev) =>
+      prev.map((team) =>
+        team.id === id
+          ? {
+              ...team,
+              percentage: value,
+              amount: parseFloat(
+                ((getRemainingAmount() * numericValue) / 100).toFixed(2)
+              ),
+            }
+          : team
+      )
+    );
+  };
+
+  const handleAddTeam = () => {
+    if (!newTeam.trim()) return;
+
+    setTeams([
+      ...teams,
+      {
+        id: Date.now(),
+        name: newTeam.trim(),
+        percentage: "0",
+        amount: 0,
+        deleteOption: true,
+      },
+    ]);
+    setNewTeam("");
+  };
+
+  const handleDeleteTeam = (id: number) => {
+    setTeams(teams.filter((team) => team.id !== id));
+  };
 
   return (
     <View
@@ -29,241 +70,60 @@ const RemainingBudgetAllocation = () => {
           { color: theme.heading },
         ]}
       >
-        Remaining Budget Allocations
+        Remaining Budget Allocation
       </Text>
-      <Text style={{ color: "green", fontWeight: "500" }}>
-        Remaining Budget: BDT 0.00 (60% of total)
+      <Text style={{ color: theme.body, marginBottom: 12 }}>
+        Remaining Budget :
+        <Text style={{ color: "#00C843" }}>
+          {" "}
+          {context?.currency} {getRemainingAmount().toFixed(2)}
+        </Text>{" "}
+        (60 % of total)
       </Text>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.body }]}>
-          Client Management
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-          }}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-                color: theme.placeholder,
-              },
-            ]}
-            placeholder="amount"
-            maxLength={10}
-            value={amount}
-            editable={false}
-          />
-          <View
-            style={[
-              styles.pickerWrapper,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <Picker
-              selectedValue={percentage}
-              onValueChange={(itemValue: string) => setPercentage(itemValue)}
-              style={styles.picker}
-            >
-              {percentageOptions.map((value) => (
-                <Picker.Item key={value} label={`${value}%`} value={value} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.body }]}>
-          Client Acquisition (Referral)
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-          }}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-                color: theme.placeholder,
-              },
-            ]}
-            placeholder="amount"
-            maxLength={10}
-            value={amount}
-            editable={false}
-          />
-          <View
-            style={[
-              styles.pickerWrapper,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <Picker
-              selectedValue={percentage}
-              onValueChange={(itemValue: string) => setPercentage(itemValue)}
-              style={styles.picker}
-            >
-              {percentageOptions.map((value) => (
-                <Picker.Item key={value} label={`${value}%`} value={value} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.body }]}>Design Team</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-          }}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-                color: theme.placeholder,
-              },
-            ]}
-            placeholder="amount"
-            maxLength={10}
-            value={amount}
-            editable={false}
-          />
-          <View
-            style={[
-              styles.pickerWrapper,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <Picker
-              selectedValue={percentage}
-              onValueChange={(itemValue: string) => setPercentage(itemValue)}
-              style={styles.picker}
-            >
-              {percentageOptions.map((value) => (
-                <Picker.Item key={value} label={`${value}%`} value={value} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.body }]}>
-          Development Team
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-          }}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-                color: theme.placeholder,
-              },
-            ]}
-            placeholder="amount"
-            maxLength={10}
-            value={amount}
-            editable={false}
-          />
-          <View
-            style={[
-              styles.pickerWrapper,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <Picker
-              selectedValue={percentage}
-              onValueChange={(itemValue: string) => setPercentage(itemValue)}
-              style={styles.picker}
-            >
-              {percentageOptions.map((value) => (
-                <Picker.Item key={value} label={`${value}%`} value={value} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.body }]}>
-          Marketing Team
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-          }}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-                color: theme.placeholder,
-              },
-            ]}
-            placeholder="amount"
-            maxLength={10}
-            value={amount}
-            editable={false}
-          />
-          <View
-            style={[
-              styles.pickerWrapper,
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <Picker
-              selectedValue={percentage}
-              onValueChange={(itemValue: string) => setPercentage(itemValue)}
-              style={styles.picker}
-            >
-              {percentageOptions.map((value) => (
-                <Picker.Item key={value} label={`${value}%`} value={value} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </View>
 
-      <View style={[styles.addTeamContainer]}>
+      {teams.map((team) => (
+        <View key={team.id} style={styles.inputContainer}>
+          <Text style={[styles.label, { color: theme.body }]}>{team.name}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 8,
+              alignItems: "center",
+            }}
+          >
+            <TextInput
+              style={[styles.input, { flex: 0.7, borderColor: theme.border }]}
+              value={String(team.amount)}
+              editable={false}
+            />
+
+            <View style={[styles.pickerWrapper, { borderColor: theme.border }]}>
+              <Picker
+                selectedValue={team.percentage}
+                onValueChange={(value) =>
+                  handlePercentageChange(team.id, value)
+                }
+                style={styles.picker}
+              >
+                {percentageOptions.map((value) => (
+                  <Picker.Item key={value} label={`${value}%`} value={value} />
+                ))}
+              </Picker>
+            </View>
+
+            {team.deleteOption && (
+              <TouchableOpacity
+                accessibilityLabel={`Delete team ${team.name}`}
+                onPress={() => handleDeleteTeam(team.id)}
+              >
+                <DeleteIcon color="#F30000" width={24} height={24} />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      ))}
+
+      <View style={styles.addTeamContainer}>
         <TextInput
           style={[
             styles.teamInput,
@@ -275,11 +135,15 @@ const RemainingBudgetAllocation = () => {
           ]}
           placeholder="Enter team name"
           placeholderTextColor={theme.placeholder}
-          maxLength={10}
-          //   value={amount}
-          //   onChangeText={setAmount}
+          maxLength={30}
+          value={newTeam}
+          onChangeText={setNewTeam}
         />
-        <TouchableOpacity activeOpacity={0.7} style={[styles.addButton]}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.addButton}
+          onPress={handleAddTeam}
+        >
           <Text style={styles.buttonText}>Add Team</Text>
         </TouchableOpacity>
       </View>
@@ -303,7 +167,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 12,
+    marginBottom: 4,
   },
   inputContainer: {
     marginTop: 8,
@@ -313,22 +177,30 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 4,
   },
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 16,
+    fontSize: 16,
+    height: 56,
+  },
   pickerWrapper: {
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
     flex: 0.7,
+    justifyContent: "center",
+    height: 56,
   },
   picker: {
-    // backgroundColor: "green",
+    height: 56,
+    fontSize: 16,
   },
-  input: {
-    borderWidth: 1,
+  addButton: {
+    backgroundColor: "purple",
+    padding: 14,
     borderRadius: 8,
-    flex: 1,
-    paddingHorizontal: 12,
   },
-  addButton: { backgroundColor: "green", padding: 14, borderRadius: 8 },
   addTeamContainer: {
     marginTop: 20,
   },

@@ -89,10 +89,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
+    height: 56,
   },
+
   pickerWrapper: {
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
+    justifyContent: "center",
+    height: 56,
   },
 });

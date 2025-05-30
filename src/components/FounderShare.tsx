@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
+    justifyContent: "center",
+    height: 56,
   },
   picker: {
     height: 50,

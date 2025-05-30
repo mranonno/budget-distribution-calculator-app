@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Client Management",
+    "percentage": "0",
+    "amount": 0,
+    "deleteOption": false
+  },
+  {
+    "id": 2,
+    "name": "Client Acquisition (Referral)",
+    "percentage": "0",
+    "amount": 0,
+    "deleteOption": false
+  },
+  {
+    "id": 3,
+    "name": "Design Team",
+    "percentage": "0",
+    "amount": 0,
+    "deleteOption": false
+  },
+  {
+    "id": 4,
+    "name": "Development Team",
+    "percentage": "0",
+    "amount": 0,
+    "deleteOption": false
+  },
+  {
+    "id": 5,
+    "name": "Marketing Team",
+    "percentage": "0",
+    "amount": 0,
+    "deleteOption": false
+  }
+]

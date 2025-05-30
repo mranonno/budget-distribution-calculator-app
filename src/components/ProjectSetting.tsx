@@ -71,5 +71,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
+    height: 56,
   },
 });
