@@ -30,7 +30,7 @@ const TotalBudget: React.FC = () => {
               borderColor: theme.border,
               color: theme.body,
               backgroundColor: theme.background,
-              flex: 0.7,
+              flex: 0.6,
             },
           ]}
           keyboardType="numeric"
@@ -47,7 +47,7 @@ const TotalBudget: React.FC = () => {
             {
               borderColor: theme.border,
               backgroundColor: theme.background,
-              flex: 1,
+              flex: 0.4,
             },
           ]}
         >

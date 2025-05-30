@@ -29,47 +29,30 @@ const FixedAllocation = () => {
       >
         Fixed Allocation
       </Text>
-
-      {/* Empty state if no budget */}
-      {totalBudget <= 0 && (
-        <Text
-          style={{
-            color: theme.body,
-            textAlign: "center",
-            marginTop: 12,
-            fontSize: 14,
-          }}
-        >
-          Please enter a total budget to calculate fixed allocations.
-        </Text>
-      )}
-
       {/* Allocation cards */}
-      {totalBudget > 0 && (
-        <View style={styles.rowContainer}>
-          {/* Company Fund Card */}
-          <View style={[styles.allocationCard, styles.companyFundCard]}>
-            <Text style={[styles.companyAmount, { color: theme.subheading }]}>
-              {currency} {companyFundAmount.toFixed(2)}
-            </Text>
-            <Text style={[styles.label, { color: theme.body }]}>
-              Company Fund
-              {/* ({companyFundPercent}%) */}
-            </Text>
-          </View>
-
-          {/* Zakat Card */}
-          <View style={[styles.allocationCard, styles.zakatFundCard]}>
-            <Text style={[styles.zakatAmount, { color: theme.subheading }]}>
-              {currency} {zakatFundAmount.toFixed(2)}
-            </Text>
-            <Text style={[styles.label, { color: theme.body }]}>
-              Zakat
-              {/* ({zakatFundPercent}%) */}
-            </Text>
-          </View>
+      <View style={styles.rowContainer}>
+        {/* Company Fund Card */}
+        <View style={[styles.allocationCard, styles.companyFundCard]}>
+          <Text style={[styles.companyAmount, { color: theme.subheading }]}>
+            {currency} {companyFundAmount.toFixed(2)}
+          </Text>
+          <Text style={[styles.label, { color: theme.body }]}>
+            Company Fund
+            {/* ({companyFundPercent}%) */}
+          </Text>
         </View>
-      )}
+
+        {/* Zakat Card */}
+        <View style={[styles.allocationCard, styles.zakatFundCard]}>
+          <Text style={[styles.zakatAmount, { color: theme.subheading }]}>
+            {currency} {zakatFundAmount.toFixed(2)}
+          </Text>
+          <Text style={[styles.label, { color: theme.body }]}>
+            Zakat
+            {/* ({zakatFundPercent}%) */}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -89,7 +72,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 12,
+    marginBottom: 16,
   },
   rowContainer: {
     flexDirection: "row",

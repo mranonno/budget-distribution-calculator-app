@@ -69,22 +69,8 @@ const FounderShare: React.FC = () => {
         </Text>
       </Text>
 
-      {/* Empty state if budget is zero */}
-      {totalBudget <= 0 && (
-        <Text
-          style={{
-            color: theme.body,
-            textAlign: "center",
-            marginTop: 12,
-            fontSize: 14,
-          }}
-        >
-          Please enter a total budget to calculate shares.
-        </Text>
-      )}
-
       {/* Render founders dynamically */}
-      {founders.length > 0 && totalBudget > 0 && (
+      {founders.length > 0 && (
         <View style={styles.rowContainer}>
           {founders.map((founder, index) => (
             <View
@@ -123,14 +109,14 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 8,
+    marginBottom: 4,
   },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   label: {
     fontSize: 14,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   pickerWrapper: {
     borderWidth: 1,

@@ -1,6 +1,6 @@
 [
-  { "name": "Rifat Ansari", "amount": 40000, "color": "#F9E6FF" },
-  { "name": "Yousuf Sharker", "amount": 40000, "color": "#EDFFDF" },
-  { "name": "Atikur Rahman", "amount": 1000, "color": "#FDFFE3" },
-  { "name": "Rayan Hossain", "amount": 40000, "color": "#E6EFFF" }
+  { "name": "Rifat Ansari", "amount": 0, "color": "#F9E6FF" },
+  { "name": "Yousuf Sharker", "amount": 0, "color": "#EDFFDF" },
+  { "name": "Atikur Rahman", "amount": 0, "color": "#FDFFE3" },
+  { "name": "Rayan Hossain", "amount": 0, "color": "#E6EFFF" }
 ]
