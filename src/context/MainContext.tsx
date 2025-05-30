@@ -18,6 +18,8 @@ export interface MainContextType {
   setCurrency: (value: string) => void;
   founders: Founder[];
   setFounders: React.Dispatch<React.SetStateAction<Founder[]>>;
+  projectName: string;
+  setProjectName: (value: string) => void;
 }
 
 // Create the context
@@ -34,6 +36,7 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   const [totalBudget, setTotalBudgetState] = useState<number>(0);
   const [currency, setCurrencyState] = useState<string>("USD");
   const [founders, setFounders] = useState<Founder[]>(foundersData);
+  const [projectName, setProjectNameState] = useState<string>("");
   useEffect(() => {
     if (!foundersData || !Array.isArray(foundersData)) {
       console.error("Failed to load founders data");
@@ -61,6 +64,15 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
     }
   };
 
+  // Custom setter for projectName
+  const setProjectName = (value: string) => {
+    if (value.trim() === "") {
+      return; // Ignore empty strings
+    }
+
+    setProjectNameState(value);
+  };
+
   const value: MainContextType = {
     totalBudget,
     setTotalBudget,
@@ -68,6 +80,8 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
     setCurrency,
     founders,
     setFounders,
+    projectName,
+    setProjectName,
   };
 
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;

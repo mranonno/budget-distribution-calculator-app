@@ -64,11 +64,6 @@ const FounderShare: React.FC = () => {
         </View>
       </View>
 
-      {/* Info Tooltip */}
-      {/* <Text style={[styles.info, { color: theme.body }]}>
-        Shares are divided equally among all founders.
-      </Text> */}
-
       {/* Show total allocation */}
       <Text style={[styles.summary, { color: theme.body, marginBottom: 12 }]}>
         Total Allocation:{" "}
@@ -154,7 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: "italic",
     marginBottom: 8,
-    color: "#6B7280",
   },
   summary: {
     fontSize: 14,
@@ -166,7 +160,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   card: {
-    borderRadius: 8,
+    borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 16,
     flexBasis: "48%",
@@ -177,7 +171,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   founderAmount: {
-    color: "#2050D9", // Blue amount
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 4,
@@ -185,7 +178,7 @@ const styles = StyleSheet.create({
   },
   founderPercent: {
     fontSize: 12,
-    color: "#6B7280", // Gray percentage
+    color: "#6B7280",
     marginTop: 4,
   },
 });

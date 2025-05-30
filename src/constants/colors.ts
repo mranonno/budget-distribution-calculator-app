@@ -8,6 +8,7 @@ const Colors = {
     background: "#FDFDFD", // Your original background
     componentBackground: "#FFFFFF", // Light card background
     border: "#CCCCCC", // Light gray border — subtle and clean
+    error: "#DC2626",
   },
   dark: {
     heading: "#FFFFFF",
@@ -18,6 +19,7 @@ const Colors = {
     background: "#121212",
     componentBackground: "#1E1E1E", // Dark card background
     border: "#333333", // Darker gray border — visible but soft
+    error: "#F87171",
   },
 };
 

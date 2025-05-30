@@ -13,10 +13,10 @@ import FounderShare from "../../components/FounderShare";
 import FixedAllocation from "../../components/FixedAllocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Colors from "../../constants/colors";
-import Typography from "../../constants/typography";
 import RemainingBudgetAllocation from "../../components/RemainingBudgetAllocation";
 import BudgetSummary from "../../components/BudgetSummary";
 import Navbar from "../../shared/Navbar";
+import ProjectSetting from "../../components/ProjectSetting";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -39,6 +39,7 @@ const HomeScreen = () => {
           keyboardShouldPersistTaps="handled"
         >
           <Navbar />
+          <ProjectSetting />
           <TotalBudget />
           <FounderShare />
           <FixedAllocation />
