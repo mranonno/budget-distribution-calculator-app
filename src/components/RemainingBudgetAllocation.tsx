@@ -11,14 +11,15 @@ import Typography from "../constants/typography";
 import useTheme from "../hooks/useTheme";
 import { MainContext } from "../context/MainContext";
 import DeleteIcon from "../../assets/Icons/DeleteIcon";
+import { generatePercentageOptions } from "../utils/utils";
+import TeamRow from "../shared/TeamsRows";
 
 const RemainingBudgetAllocation = () => {
   const { theme } = useTheme();
   const context = useContext(MainContext);
   const { teams, setTeams, totalBudget } = context!;
   const [newTeam, setNewTeam] = useState("");
-
-  const percentageOptions = Array.from({ length: 101 }, (_, i) => i.toString());
+  const percentageOptions = generatePercentageOptions();
 
   const getRemainingAmount = () => (totalBudget * 60) / 100;
 
@@ -84,42 +85,14 @@ const RemainingBudgetAllocation = () => {
       {teams.map((team) => (
         <View key={team.id} style={styles.inputContainer}>
           <Text style={[styles.label, { color: theme.body }]}>{team.name}</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 8,
-              alignItems: "center",
-            }}
-          >
-            <TextInput
-              style={[styles.input, { flex: 0.7, borderColor: theme.border }]}
-              value={String(team.amount)}
-              editable={false}
-            />
-
-            <View style={[styles.pickerWrapper, { borderColor: theme.border }]}>
-              <Picker
-                selectedValue={team.percentage}
-                onValueChange={(value) =>
-                  handlePercentageChange(team.id, value)
-                }
-                style={styles.picker}
-              >
-                {percentageOptions.map((value) => (
-                  <Picker.Item key={value} label={`${value}%`} value={value} />
-                ))}
-              </Picker>
-            </View>
-
-            {team.deleteOption && (
-              <TouchableOpacity
-                accessibilityLabel={`Delete team ${team.name}`}
-                onPress={() => handleDeleteTeam(team.id)}
-              >
-                <DeleteIcon color="#F30000" width={24} height={24} />
-              </TouchableOpacity>
-            )}
-          </View>
+          <TeamRow
+            team={team}
+            onPercentageChange={(value) =>
+              handlePercentageChange(team.id, value)
+            }
+            onDelete={() => handleDeleteTeam(team.id)}
+            theme={theme}
+          />
         </View>
       ))}
 

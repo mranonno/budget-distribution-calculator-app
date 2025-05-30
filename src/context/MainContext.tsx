@@ -1,21 +1,8 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import foundersData from "../../assets/data/founders.json";
 import teamsData from "../../assets/data/teams.json";
-
-// Founder type
-export type Founder = {
-  name: string;
-  amount: number;
-  color: string;
-};
-// Teams type
-export type Team = {
-  id: number;
-  name: string;
-  percentage: string;
-  amount: number;
-  deleteOption: boolean;
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Founder, Team } from "../types/types";
 
 export interface MainContextType {
   totalBudget: number;
@@ -29,6 +16,7 @@ export interface MainContextType {
   teams: Team[];
   setTeams: React.Dispatch<React.SetStateAction<Team[]>>;
 }
+
 // Create the context
 export const MainContext = createContext<MainContextType | undefined>(
   undefined
@@ -37,6 +25,15 @@ export const MainContext = createContext<MainContextType | undefined>(
 interface MyProviderProps {
   children: ReactNode;
 }
+
+// Keys for AsyncStorage
+const STORAGE_KEYS = {
+  TEAMS: "app_teams",
+  FOUNDERS: "app_founders",
+  TOTAL_BUDGET: "app_total_budget",
+  PROJECT_NAME: "app_project_name",
+  CURRENCY: "app_currency",
+};
 
 // Provider component
 const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
@@ -50,19 +47,57 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
     Array.isArray(teamsData) ? teamsData : []
   );
 
-  // Load initial data
+  // Load persisted data on mount
   useEffect(() => {
-    if (!foundersData || !Array.isArray(foundersData)) {
-      console.error("Failed to load founders data");
-      setFounders([]);
-    }
+    const loadPersistedData = async () => {
+      try {
+        const [
+          storedTeams,
+          storedFounders,
+          storedBudget,
+          storedProjectName,
+          storedCurrency,
+        ] = await Promise.all([
+          AsyncStorage.getItem(STORAGE_KEYS.TEAMS),
+          AsyncStorage.getItem(STORAGE_KEYS.FOUNDERS),
+          AsyncStorage.getItem(STORAGE_KEYS.TOTAL_BUDGET),
+          AsyncStorage.getItem(STORAGE_KEYS.PROJECT_NAME),
+          AsyncStorage.getItem(STORAGE_KEYS.CURRENCY),
+        ]);
+
+        if (storedTeams) setTeams(JSON.parse(storedTeams));
+        if (storedFounders) setFounders(JSON.parse(storedFounders));
+        if (storedBudget) setTotalBudgetState(parseFloat(storedBudget));
+        if (storedProjectName) setProjectNameState(storedProjectName);
+        if (storedCurrency) setCurrencyState(storedCurrency);
+      } catch (error) {
+        console.error("Failed to load persisted data", error);
+      }
+    };
+
+    loadPersistedData();
   }, []);
+
+  // Save data whenever it changes
   useEffect(() => {
-    if (!teamsData || !Array.isArray(teamsData)) {
-      console.error("Failed to load teams data");
-      setTeams([]);
-    }
-  }, []);
+    AsyncStorage.setItem(STORAGE_KEYS.TEAMS, JSON.stringify(teams));
+  }, [teams]);
+
+  useEffect(() => {
+    AsyncStorage.setItem(STORAGE_KEYS.FOUNDERS, JSON.stringify(founders));
+  }, [founders]);
+
+  useEffect(() => {
+    AsyncStorage.setItem(STORAGE_KEYS.TOTAL_BUDGET, totalBudget.toString());
+  }, [totalBudget]);
+
+  useEffect(() => {
+    AsyncStorage.setItem(STORAGE_KEYS.PROJECT_NAME, projectName);
+  }, [projectName]);
+
+  useEffect(() => {
+    AsyncStorage.setItem(STORAGE_KEYS.CURRENCY, currency);
+  }, [currency]);
 
   // Custom setter for totalBudget
   const setTotalBudget = (value: string | number) => {
@@ -87,10 +122,6 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
 
   // Custom setter for projectName
   const setProjectName = (value: string) => {
-    // if (value.trim() === "") {
-    //   return; // Ignore empty strings
-    // }
-
     setProjectNameState(value);
   };
 

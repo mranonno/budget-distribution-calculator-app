@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { MainContext, MainContextType, Founder } from "../context/MainContext";
+import { useContext } from "react";
+import { MainContext, MainContextType } from "../context/MainContext";
 
 /**
  * Custom hook to use the main app context.
@@ -16,6 +16,3 @@ export const useMainContext = (): MainContextType => {
 
   return context;
 };
-
-// Re-export types you want to share
-export type { Founder };

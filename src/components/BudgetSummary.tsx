@@ -1,10 +1,37 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import useTheme from "../hooks/useTheme";
 import Typography from "../constants/typography";
+import { MainContext } from "../context/MainContext";
+import Divider from "../shared/Divider";
+import SummaryRow from "../shared/SummaryRow";
+// import { Team } from "../../types/team";
 
 const BudgetSummary = () => {
   const { theme } = useTheme();
+  const context = useContext(MainContext);
+  const { totalBudget, currency, teams } = context!;
+
+  // Helper function to format numbers
+  const formatCurrency = (amount: number) => `${currency} ${amount.toFixed(2)}`;
+
+  // Fixed percentages
+  const founderSharePercent = 20;
+  const companyFundPercent = 17.5;
+  const zakatPercent = 2.5;
+
+  // Calculated values
+  const founderShare = (totalBudget * founderSharePercent) / 100;
+  const companyFund = (totalBudget * companyFundPercent) / 100;
+  const zakat = (totalBudget * zakatPercent) / 100;
+
+  const usedBudget = founderShare + companyFund + zakat;
+  const remainingBudget = totalBudget - usedBudget;
+
+  // Total allocated by teams
+  const teamTotal = teams.reduce((sum, team) => sum + team.amount, 0);
+
+  const balanceRemaining = remainingBudget - teamTotal;
   return (
     <View
       style={[styles.container, { backgroundColor: theme.componentBackground }]}
@@ -18,203 +45,78 @@ const BudgetSummary = () => {
       >
         Budget Summary
       </Text>
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Total Budget</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Founder's Share (20%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Company Fund (17.5%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Zakat (2.5%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        {/* <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-            marginVertical: 8,
-          }}
-        >
-          <Text style={{ color: "purple", fontWeight: "bold", fontSize: 16 }}>
-            Remaining Budget
-          </Text>
-          <Text style={{ color: "purple", fontWeight: "bold", fontSize: 16 }}>
-            BDT 0.00
-          </Text>
-        </View> */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginVertical: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Client Management (0%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>
-            Client Acquisition (Referral) (0%)
-          </Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Design Team (0%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Development Team (0%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderColor: theme.border,
-            marginVertical: 4,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // marginBottom: 8,
-          }}
-        >
-          <Text style={{ color: theme.body }}>Marketing Team (0%)</Text>
-          <Text style={{ color: theme.body }}>BDT 0.00</Text>
-        </View>
-      </View>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: theme.border,
-          marginVertical: 4,
-        }}
+
+      {/* Total Budget */}
+      <SummaryRow
+        label="Total Budget"
+        value={formatCurrency(totalBudget)}
+        theme={theme}
       />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 8,
-        }}
-      >
-        <Text style={{ color: "green", fontSize: 18, fontWeight: "bold" }}>
-          Balance Remaining
-        </Text>
-        <Text style={{ color: "green", fontSize: 18, fontWeight: "bold" }}>
-          BDT 0.00
-        </Text>
+
+      <Divider theme={theme} />
+
+      {/* Founder's Share */}
+      <SummaryRow
+        label={`Founder's Share (${founderSharePercent}%)`}
+        value={formatCurrency(founderShare)}
+        theme={theme}
+      />
+
+      <Divider theme={theme} />
+
+      {/* Company Fund */}
+      <SummaryRow
+        label={`Company Fund (${companyFundPercent}%)`}
+        value={formatCurrency(companyFund)}
+        theme={theme}
+      />
+
+      <Divider theme={theme} />
+
+      {/* Zakat */}
+      <SummaryRow
+        label={`Zakat (${zakatPercent}%)`}
+        value={formatCurrency(zakat)}
+        theme={theme}
+      />
+
+      <Divider theme={theme} />
+
+      {/* Remaining Budget */}
+      <SummaryRow
+        label="Remaining Budget (60%)"
+        value={formatCurrency(remainingBudget)}
+        theme={theme}
+        bold
+      />
+
+      <Divider theme={theme} />
+
+      {/* Teams */}
+      {teams.map((team) => (
+        <React.Fragment key={team.id}>
+          <SummaryRow
+            label={`${team.name} (${team.percentage}%)`}
+            value={formatCurrency(team.amount)}
+            theme={theme}
+          />
+          <Divider theme={theme} />
+        </React.Fragment>
+      ))}
+
+      {/* Balance Remaining */}
+      <View style={{ marginVertical: 8 }}>
+        <SummaryRow
+          label="Balance Remaining"
+          value={formatCurrency(balanceRemaining)}
+          theme={theme}
+          green
+        />
       </View>
+
+      <Divider theme={theme} />
+
+      {/* Download Button */}
       <TouchableOpacity
         activeOpacity={0.7}
         style={{

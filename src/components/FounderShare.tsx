@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import useTheme from "../hooks/useTheme";
 import Typography from "../constants/typography";
-import { Founder, useMainContext } from "../hooks/useMainContext";
+import { useMainContext } from "../hooks/useMainContext";
 
 const FounderShare: React.FC = () => {
   const [percentage, setPercentage] = useState<string>("5");
@@ -83,9 +83,6 @@ const FounderShare: React.FC = () => {
               <Text style={[styles.founderName, { color: theme.body }]}>
                 {founder.name}
               </Text>
-              {/* <Text style={styles.founderPercent}>
-                {(100 / founders.length).toFixed(1)}%
-              </Text> */}
             </View>
           ))}
         </View>
