@@ -1,4 +1,6 @@
-import { convert as RNHTMLtoPDF } from "react-native-html-to-pdf";
+// src/utils/generateBudgetPDF.ts
+
+import RNHTMLtoPDF from "react-native-html-to-pdf";
 
 interface BudgetData {
   totalBudget: number;
@@ -91,10 +93,11 @@ export const generateBudgetPDF = async (data: BudgetData) => {
     directory: "Documents",
   };
 
-  const file = await RNHTMLtoPDF({
-    html,
-    fileName: "budget_summary",
-    directory: "Downloads",
-  });
-  return file.filePath;
+  try {
+    const file = await RNHTMLtoPDF.convert(options); // ✅ Correct usage
+    return file.filePath;
+  } catch (error) {
+    console.error("Failed to generate PDF:", error);
+    throw error;
+  }
 };

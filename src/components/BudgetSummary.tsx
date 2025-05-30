@@ -5,8 +5,7 @@ import Typography from "../constants/typography";
 import { MainContext } from "../context/MainContext";
 import Divider from "../shared/Divider";
 import SummaryRow from "../shared/SummaryRow";
-import { generateBudgetPDF } from "../utils/generatePDF";
-// import { Team } from "../../types/team";
+import { generateBudgetPDF } from "../utils/generateBudgetPDF";
 
 const BudgetSummary = () => {
   const { theme } = useTheme();

@@ -1,5 +1,3 @@
-// src/types/react-native-html-to-pdf.d.ts
-
 declare module "react-native-html-to-pdf" {
   interface PDFOptions {
     html: string;
@@ -21,5 +19,7 @@ declare module "react-native-html-to-pdf" {
 
   const convert: (options: PDFOptions) => Promise<{ filePath: string }>;
 
-  export { convert };
+  export default {
+    convert,
+  };
 }

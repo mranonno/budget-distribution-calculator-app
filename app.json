@@ -7,7 +7,9 @@
     "icon": "./assets/budget-calculator-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "permissions": ["writeExternalStorage"],
+    "permissions": [
+      "writeExternalStorage"
+    ],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -30,8 +32,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "242e0b4f-791e-4979-87bc-633e491141c5"
+        "projectId": "6f3c051a-535a-4ff3-9ebf-5b3c785b2ca2"
       }
-    }
+    },
+    "owner": "mranonno1"
   }
 }
