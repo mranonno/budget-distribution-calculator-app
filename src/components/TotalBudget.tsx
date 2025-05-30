@@ -20,12 +20,9 @@ const TotalBudget: React.FC = () => {
           { color: theme.heading, marginBottom: 12 },
         ]}
       >
-        Enter Total Budget
+        Total Budget
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={[Typography.body, { color: theme.body, marginBottom: 4 }]}>
-          Budget Amount
-        </Text>
         <TextInput
           style={[
             styles.input,
@@ -33,36 +30,24 @@ const TotalBudget: React.FC = () => {
               borderColor: theme.border,
               color: theme.body,
               backgroundColor: theme.background,
+              flex: 0.7,
             },
           ]}
           keyboardType="numeric"
-          placeholder="e.g. 1000"
+          placeholder="Enter Amount"
           placeholderTextColor={theme.placeholder}
           maxLength={10}
           value={totalBudget === 0 ? "" : totalBudget.toString()}
           onChangeText={setTotalBudget}
         />
-        {totalBudget === 0 && (
-          <Text
-            style={{
-              color: theme.placeholder,
-              fontSize: 12,
-              marginTop: -10,
-              marginBottom: 10,
-            }}
-          >
-            Please enter your budget
-          </Text>
-        )}
-        <Text style={[Typography.body, { color: theme.body, marginBottom: 4 }]}>
-          Currency
-        </Text>
+
         <View
           style={[
             styles.pickerWrapper,
             {
               borderColor: theme.border,
               backgroundColor: theme.background,
+              flex: 1,
             },
           ]}
         >
@@ -93,19 +78,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 20,
   },
-  inputContainer: {},
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12,
+  },
   input: {
     borderWidth: 1,
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
-    marginBottom: 16,
   },
   pickerWrapper: {
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
-    marginBottom: 8,
   },
-  picker: {},
 });
