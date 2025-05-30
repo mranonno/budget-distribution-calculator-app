@@ -5,6 +5,7 @@ import Typography from "../constants/typography";
 import { MainContext } from "../context/MainContext";
 import Divider from "../shared/Divider";
 import SummaryRow from "../shared/SummaryRow";
+import { generateBudgetPDF } from "../utils/generatePDF";
 // import { Team } from "../../types/team";
 
 const BudgetSummary = () => {
@@ -117,6 +118,27 @@ const BudgetSummary = () => {
       <Divider theme={theme} />
 
       {/* Download Button */}
+      {/* <TouchableOpacity
+        activeOpacity={0.7}
+        style={{
+          backgroundColor: "purple",
+          padding: 14,
+          borderRadius: 8,
+          marginTop: 20,
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            color: "white",
+            fontWeight: "500",
+            fontSize: 18,
+          }}
+        >
+          Download Summary
+        </Text>
+      </TouchableOpacity> */}
+
       <TouchableOpacity
         activeOpacity={0.7}
         style={{
@@ -124,6 +146,26 @@ const BudgetSummary = () => {
           padding: 14,
           borderRadius: 8,
           marginTop: 20,
+        }}
+        onPress={async () => {
+          try {
+            const filePath = await generateBudgetPDF({
+              totalBudget,
+              founderShare: (totalBudget * 20) / 100,
+              companyFund: (totalBudget * 17.5) / 100,
+              zakat: (totalBudget * 2.5) / 100,
+              remainingBudget: (totalBudget * 60) / 100,
+              teams,
+              balanceRemaining:
+                (totalBudget * 60) / 100 -
+                teams.reduce((sum, team) => sum + team.amount, 0),
+              currency,
+            });
+            alert(`PDF saved at: ${filePath}`);
+          } catch (error) {
+            console.error("Failed to generate PDF", error);
+            alert("Error generating PDF");
+          }
         }}
       >
         <Text
