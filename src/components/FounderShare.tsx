@@ -37,10 +37,7 @@ const FounderShare: React.FC = () => {
 
       <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: theme.body }]}>
-          Select Percentage Per Founder
-        </Text>
-        <Text style={[styles.info, { color: theme.body }]}>
-          Shares are divided equally among all founders.
+          Shares are divided equally among all founders
         </Text>
         <View
           style={[
@@ -65,7 +62,7 @@ const FounderShare: React.FC = () => {
       </View>
 
       {/* Show total allocation */}
-      <Text style={[styles.summary, { color: theme.body, marginBottom: 12 }]}>
+      <Text style={[styles.summary, { color: theme.body }]}>
         Total Allocation:{" "}
         <Text style={{ fontWeight: "bold" }}>
           {currency} {totalFounderAllocation.toFixed(2)}
@@ -126,21 +123,19 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 12,
+    marginBottom: 8,
   },
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: 20,
   },
   label: {
     fontSize: 14,
-    fontWeight: "500",
-    marginBottom: 4,
+    marginBottom: 20,
   },
   pickerWrapper: {
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
-    marginBottom: 8,
   },
   picker: {
     height: 50,
@@ -152,6 +147,7 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 14,
+    marginBottom: 8,
   },
   rowContainer: {
     flexDirection: "row",

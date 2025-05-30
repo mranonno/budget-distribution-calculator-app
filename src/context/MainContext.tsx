@@ -1,6 +1,4 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-
-// Import founders JSON
 import foundersData from "../../assets/data/founders.json";
 
 // Founder type
@@ -10,7 +8,6 @@ export type Founder = {
   color: string;
 };
 
-// Updated context interface
 export interface MainContextType {
   totalBudget: number;
   setTotalBudget: (value: string | number) => void;
@@ -66,9 +63,9 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
 
   // Custom setter for projectName
   const setProjectName = (value: string) => {
-    if (value.trim() === "") {
-      return; // Ignore empty strings
-    }
+    // if (value.trim() === "") {
+    //   return; // Ignore empty strings
+    // }
 
     setProjectNameState(value);
   };
