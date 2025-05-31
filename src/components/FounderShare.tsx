@@ -137,14 +137,17 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
     gap: 12,
+    justifyContent: "center", // Optional: center align cards
   },
   card: {
+    flex: 1, // Allow card to grow
+    minWidth: 140, // Minimum width per card
+    maxWidth: "48%", // Max width for 2 per row
+    flexGrow: 1,
     borderRadius: 12,
     paddingVertical: 16,
-    paddingHorizontal: 16,
-    flexBasis: "48%",
+    paddingHorizontal: 16, // Add spacing between rows
   },
 
   founderName: {

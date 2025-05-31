@@ -59,7 +59,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   copyrightText: { textAlign: "center", marginTop: 20 },
 });

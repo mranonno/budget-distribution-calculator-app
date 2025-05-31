@@ -7,9 +7,6 @@
     "icon": "./assets/budget-calculator-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "permissions": [
-      "writeExternalStorage"
-    ],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",

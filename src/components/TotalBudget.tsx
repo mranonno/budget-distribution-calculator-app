@@ -47,7 +47,7 @@ const TotalBudget: React.FC = () => {
             {
               borderColor: theme.border,
               backgroundColor: theme.background,
-              flex: 0.4,
+              flex: 0.5,
             },
           ]}
         >
@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     gap: 12,
+    flexWrap: "wrap", // Allow wrapping on small screens
   },
   input: {
     borderWidth: 1,
@@ -90,13 +90,18 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 16,
     height: 56,
+    minWidth: 120, // Prevent shrinking too much
+    flexGrow: 1, // Let it grow as needed
+    flexBasis: "50%", // Default: 2 per row if space allows
   },
-
   pickerWrapper: {
     borderWidth: 1,
     borderRadius: 8,
     overflow: "hidden",
     justifyContent: "center",
     height: 56,
+    minWidth: 100,
+    flexGrow: 0.4,
+    flexBasis: "40%", // Adjust based on content
   },
 });
