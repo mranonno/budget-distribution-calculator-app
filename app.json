@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Budget Calculator",
-    "slug": "budget-calculator",
+    "slug": "budget-distribution-calculator",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/budget-calculator-icon.png",
@@ -13,8 +13,7 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.xrodev.budgetCalculator"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -22,16 +21,15 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.xrodev.budgetCalculator"
+      "package": "com.mranonno1.budgetdistributioncalculator"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "6f3c051a-535a-4ff3-9ebf-5b3c785b2ca2"
+        "projectId": "e721023f-41a7-4bc0-a69f-b9e6a1240a0f"
       }
-    },
-    "owner": "mranonno1"
+    }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "budget-distribution-calculator-app",
+  "name": "budget-distribution-calculator",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
@@ -12,7 +12,7 @@
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-picker/picker": "2.11.0",
     "expo": "~53.0.9",
-    "expo-permissions": "^14.4.0",
+    "expo-dev-client": "~5.1.8",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-native": "0.79.2",

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,20 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import Typography from "../constants/typography";
 import useTheme from "../hooks/useTheme";
-import { MainContext } from "../context/MainContext";
-import DeleteIcon from "../../assets/Icons/DeleteIcon";
-import { generatePercentageOptions } from "../utils/utils";
 import TeamRow from "../shared/TeamsRows";
+import { useMainContext } from "../hooks/useMainContext";
 
 const RemainingBudgetAllocation = () => {
   const { theme } = useTheme();
-  const context = useContext(MainContext);
-  const { teams, setTeams, totalBudget } = context!;
+  const { teams, setTeams, totalBudget, currency } = useMainContext();
   const [newTeam, setNewTeam] = useState("");
-  const percentageOptions = generatePercentageOptions();
 
   const getRemainingAmount = () => (totalBudget * 60) / 100;
 
@@ -77,7 +72,7 @@ const RemainingBudgetAllocation = () => {
         Remaining Budget :
         <Text style={{ color: "#00C843" }}>
           {" "}
-          {context?.currency} {getRemainingAmount().toFixed(2)}
+          {currency} {getRemainingAmount().toFixed(2)}
         </Text>{" "}
         (60 % of total)
       </Text>
@@ -114,7 +109,7 @@ const RemainingBudgetAllocation = () => {
         />
         <TouchableOpacity
           activeOpacity={0.7}
-          style={styles.addButton}
+          style={[styles.addButton, { backgroundColor: theme.primary }]}
           onPress={handleAddTeam}
         >
           <Text style={styles.buttonText}>Add Team</Text>
@@ -170,7 +165,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addButton: {
-    backgroundColor: "purple",
     padding: 14,
     borderRadius: 8,
   },

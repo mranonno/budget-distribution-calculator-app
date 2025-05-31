@@ -15,6 +15,7 @@ interface BudgetData {
   }>;
   balanceRemaining: number;
   currency: string;
+  projectName: string;
 }
 
 export const generateBudgetPDF = async (data: BudgetData) => {
@@ -27,7 +28,11 @@ export const generateBudgetPDF = async (data: BudgetData) => {
     teams,
     balanceRemaining,
     currency,
+    projectName,
   } = data;
+
+  // ✅ Replace this with your actual base64 string
+  const base64Logo = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAA...your-base64-string-here`;
 
   const formatCurrency = (amount: number) => `${currency} ${amount.toFixed(2)}`;
 
@@ -41,7 +46,7 @@ export const generateBudgetPDF = async (data: BudgetData) => {
     )
     .join("");
 
-  const html = `
+  const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
@@ -49,14 +54,17 @@ export const generateBudgetPDF = async (data: BudgetData) => {
         <title>Budget Summary</title>
         <style>
           body { font-family: Arial, sans-serif; padding: 20px; }
-          h1 { text-align: center; color: #333; }
+          h1, h2 { text-align: center; color: #333; }
           table { width: 100%; border-collapse: collapse; margin-top: 20px; }
           th, td { padding: 10px; border-bottom: 1px solid #ccc; }
           tfoot td { font-weight: bold; border-top: 2px solid #333; }
+          .logo { width: 150px; display: block; margin: 0 auto; }
         </style>
       </head>
       <body>
-        <h1>Budget Summary</h1>
+        <img src="${base64Logo}" class="logo" alt="Company Logo" />
+        <h1>Project: ${projectName}</h1>
+        <h2>Budget Summary</h2>
 
         <table>
           <tbody>
@@ -88,14 +96,14 @@ export const generateBudgetPDF = async (data: BudgetData) => {
   `;
 
   const options = {
-    html,
+    html: htmlContent,
     fileName: "budget_summary",
     directory: "Documents",
   };
 
   try {
-    const file = await RNHTMLtoPDF.convert(options); // ✅ Correct usage
-    return file.filePath;
+    const pdf = await RNHTMLtoPDF.convert(options);
+    return pdf.filePath;
   } catch (error) {
     console.error("Failed to generate PDF:", error);
     throw error;

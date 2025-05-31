@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import useTheme from "../hooks/useTheme";
 import Typography from "../constants/typography";
-import { MainContext } from "../context/MainContext";
 import Divider from "../shared/Divider";
 import SummaryRow from "../shared/SummaryRow";
 import { generateBudgetPDF } from "../utils/generateBudgetPDF";
+import { useMainContext } from "../hooks/useMainContext";
 
 const BudgetSummary = () => {
   const { theme } = useTheme();
-  const context = useContext(MainContext);
-  const { totalBudget, currency, teams } = context!;
+  const { totalBudget, currency, teams, projectName } = useMainContext();
 
   // Helper function to format numbers
   const formatCurrency = (amount: number) => `${currency} ${amount.toFixed(2)}`;
@@ -83,14 +82,14 @@ const BudgetSummary = () => {
       <Divider theme={theme} />
 
       {/* Remaining Budget */}
-      <SummaryRow
+      {/* <SummaryRow
         label="Remaining Budget (60%)"
         value={formatCurrency(remainingBudget)}
         theme={theme}
         bold
-      />
+      /> */}
 
-      <Divider theme={theme} />
+      {/* <Divider theme={theme} /> */}
 
       {/* Teams */}
       {teams.map((team) => (
@@ -111,37 +110,16 @@ const BudgetSummary = () => {
           value={formatCurrency(balanceRemaining)}
           theme={theme}
           green
+          bold
         />
       </View>
 
       <Divider theme={theme} />
 
-      {/* Download Button */}
-      {/* <TouchableOpacity
-        activeOpacity={0.7}
-        style={{
-          backgroundColor: "purple",
-          padding: 14,
-          borderRadius: 8,
-          marginTop: 20,
-        }}
-      >
-        <Text
-          style={{
-            textAlign: "center",
-            color: "white",
-            fontWeight: "500",
-            fontSize: 18,
-          }}
-        >
-          Download Summary
-        </Text>
-      </TouchableOpacity> */}
-
       <TouchableOpacity
         activeOpacity={0.7}
         style={{
-          backgroundColor: "purple",
+          backgroundColor: theme.primary,
           padding: 14,
           borderRadius: 8,
           marginTop: 20,
@@ -159,6 +137,7 @@ const BudgetSummary = () => {
                 (totalBudget * 60) / 100 -
                 teams.reduce((sum, team) => sum + team.amount, 0),
               currency,
+              projectName,
             });
             alert(`PDF saved at: ${filePath}`);
           } catch (error) {

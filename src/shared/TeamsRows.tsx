@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import DeleteIcon from "../../assets/Icons/DeleteIcon";
 import { Team } from "../types/types";
 import { Picker } from "@react-native-picker/picker";
+import { generatePercentageOptions } from "../utils/utils";
 
 interface TeamRowProps {
   team: Team;
@@ -17,6 +18,7 @@ const TeamRow: React.FC<TeamRowProps> = ({
   onDelete,
   theme,
 }) => {
+  const percentageOptions = generatePercentageOptions();
   return (
     <View style={styles.row}>
       <TextInput
@@ -31,7 +33,7 @@ const TeamRow: React.FC<TeamRowProps> = ({
           onValueChange={onPercentageChange}
           style={styles.picker}
         >
-          {Array.from({ length: 101 }, (_, i) => i.toString()).map((value) => (
+          {percentageOptions.map((value) => (
             <Picker.Item key={value} label={`${value}%`} value={value} />
           ))}
         </Picker>
